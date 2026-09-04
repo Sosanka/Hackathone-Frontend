@@ -1,199 +1,126 @@
-
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { FiEye, FiEyeOff } from "react-icons/fi";
-import "../components/Auth.css";
+import { FaUser } from "react-icons/fa";
+import { HiLightningBolt } from "react-icons/hi";
+import "./Register.css";
 
 function Register() {
   const navigate = useNavigate();
 
-  const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    password: "",
-  });
-
-  const [showPassword, setShowPassword] = useState(false);
-
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
-
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+  const handleCustomer = () => {
+    navigate("/register/customer");
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleProvider = () => {
+    navigate("/register/provider");
+  };
 
-    setError("");
-    setSuccess("");
-    setLoading(true);
-
-    try {
-      // API integration will go here
-      console.log("Register data:", formData);
-
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-
-      setSuccess("Account created successfully!");
-
-      setTimeout(() => {
-        navigate("/login");
-      }, 1500);
-
-    } catch (err) {
-      console.error(err);
-
-      setError(
-        err.response?.data?.detail ||
-        "Registration failed. Please try again."
-      );
-    } finally {
-      setLoading(false);
-    }
+  const handleLogin = () => {
+    navigate("/login");
   };
 
   return (
-    <div className="auth-page">
+    <div className="register-page">
+      <div className="register-container">
 
-      <div className="auth-container register-container">
-
-        {/* LEFT - REGISTER FORM */}
-        <div className="auth-card register-card">
-
-          <h1>Create Account</h1>
-
-          <p className="auth-subtitle">
-            Please register below account detail
-          </p>
-
-          <form onSubmit={handleSubmit}>
-
-            {/* First Name */}
-            <div className="input-group">
-              <input
-                type="text"
-                name="firstName"
-                placeholder="First Name"
-                value={formData.firstName}
-                onChange={handleChange}
-                required
-              />
-            </div>
-
-            {/* Last Name */}
-            <div className="input-group">
-              <input
-                type="text"
-                name="lastName"
-                placeholder="Last Name"
-                value={formData.lastName}
-                onChange={handleChange}
-                required
-              />
-            </div>
-
-            {/* Email */}
-            <div className="input-group">
-              <input
-                type="email"
-                name="email"
-                placeholder="Email"
-                value={formData.email}
-                onChange={handleChange}
-                required
-              />
-            </div>
-
-            {/* Password */}
-            <div className="input-group password-group">
-              <input
-                type={showPassword ? "text" : "password"}
-                name="password"
-                placeholder="Password"
-                value={formData.password}
-                onChange={handleChange}
-                required
-              />
-
-              <button
-                type="button"
-                className="password-toggle"
-                onClick={() => setShowPassword(!showPassword)}
-                aria-label={
-                  showPassword ? "Hide password" : "Show password"
-                }
-              >
-                {showPassword ? <FiEyeOff /> : <FiEye />}
-              </button>
-            </div>
-
-            {/* Error */}
-            {error && (
-              <div className="error-message">
-                {error}
-              </div>
-            )}
-
-            {/* Success */}
-            {success && (
-              <div className="success-message">
-                {success}
-              </div>
-            )}
-
-            {/* Create Button */}
-            <button
-              type="submit"
-              className="auth-button"
-              disabled={loading}
-            >
-              {loading ? "Creating..." : "Create"}
-            </button>
-
-          </form>
-
+        {/* Header */}
+        <div className="register-header">
+          <h1>Join Quickky</h1>
+          <p>Choose how you want to use Quickky</p>
         </div>
 
-        {/* RIGHT SIDE */}
-        <div className="auth-side register-side">
+        {/* Role Cards */}
+        <div className="role-cards">
 
-          <h2>Already an account holder?</h2>
+          {/* Customer Card */}
+          <div className="role-card customer-card">
 
-          <button
-            className="create-account-button login-button"
-            onClick={() => navigate("/login")}
-          >
-            Log in
-          </button>
+            <div className="role-icon customer-icon">
+              <FaUser />
+            </div>
 
-          <div className="terms">
+            <h2>I'm a Customer</h2>
 
-            <p className="terms-title">
-              <span>*</span>Terms & conditions.
+            <p className="role-description">
+              Find fresh surplus produce directly from local farmers and suppliers at affordable prices.
             </p>
 
-            <p>
-              Your privacy and security are important to us.
-              For more information on how we use your data
-              read our
+            <ul className="role-features">
+              <li>
+                <span className="blue-dot"></span>
+                Browse available surplus produce
+              </li>
+
+              <li>
+                <span className="blue-dot"></span>
+                Compare prices and quantities
+              </li>
+
+              <li>
+                <span className="blue-dot"></span>
+                Place orders directly with sellers
+              </li>
+            </ul>
+
+            <button
+              className="role-button customer-button"
+              onClick={handleCustomer}
+            >
+              Register as Customer
+            </button>
+
+          </div>
+
+          {/* Provider Card */}
+          <div className="role-card provider-card">
+
+            <div className="role-icon provider-icon">
+              <HiLightningBolt />
+            </div>
+
+            <h2>I'm a Farmer/Seller</h2>
+
+            <p className="role-description">
+              List your excess farm produce, connect with buyers, and earn from produce that might otherwise go to waste.
             </p>
 
-            <button className="privacy-button">
-              privacy policy
+            <ul className="role-features">
+              <li>
+                <span className="purple-dot"></span>
+                List surplus produce
+              </li>
+
+              <li>
+                <span className="purple-dot"></span>
+               Manage orders and buyers
+              </li>
+
+              <li>
+                <span className="purple-dot"></span>
+                Reduce food waste and increase earnings
+              </li>
+            </ul>
+
+            <button
+              className="role-button provider-button"
+              onClick={handleProvider}
+            >
+              Register as Farmer/Seller
             </button>
 
           </div>
 
         </div>
 
-      </div>
+        {/* Login */}
+        <div className="login-section">
+          <span>Already have an account?</span>
 
+          <button onClick={handleLogin}>
+            Login
+          </button>
+        </div>
+
+      </div>
     </div>
   );
 }

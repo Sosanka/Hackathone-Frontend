@@ -1,0 +1,385 @@
+/* ================================
+   REGISTER / ROLE SELECTION PAGE
+================================ */
+
+.register-page {
+  min-height: 100vh;
+  width: 100%;
+  background: #ffffff;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 40px 20px;
+  box-sizing: border-box;
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+}
+
+.register-container {
+  width: 100%;
+  max-width: 1080px;
+
+  display: flex;
+  flex-direction: column;
+}
+
+
+/* =================================
+   HIDE HEADER
+   Remove this section if you want
+   "Join Quickky" visible
+================================= */
+
+.register-header {
+  display: none;
+}
+
+
+/* =================================
+   TWO CARD LAYOUT
+================================= */
+
+.role-cards {
+  width: 100%;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  gap: 70px;
+
+  align-items: center;
+}
+
+
+/* =================================
+   CARD
+================================= */
+
+.role-card {
+  background: #ffffff;
+
+  border-radius: 14px;
+
+  padding: 48px;
+
+  min-height: 570px;
+
+  box-sizing: border-box;
+
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.10);
+
+  display: flex;
+  flex-direction: column;
+
+  transition: 0.25s ease;
+}
+
+.role-card:hover {
+  transform: translateY(-3px);
+
+  box-shadow:
+    0 14px 35px rgba(0, 0, 0, 0.14);
+}
+
+
+/* =================================
+   ICON
+================================= */
+
+.role-icon {
+  width: 78px;
+  height: 78px;
+
+  border-radius: 50%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 30px;
+
+  margin-bottom: 35px;
+}
+
+
+/* Buyer */
+
+.customer-icon {
+  background: #e8f0ff;
+  color: #1769e0;
+}
+
+
+/* Seller */
+
+.provider-icon {
+  background: #eee9ff;
+  color: #5737e8;
+}
+
+
+/* =================================
+   TITLE
+================================= */
+
+.role-card h2 {
+  margin: 0 0 18px;
+
+  font-size: 30px;
+
+  font-weight: 700;
+
+  color: #102f55;
+
+  line-height: 1.2;
+}
+
+
+/* =================================
+   DESCRIPTION
+================================= */
+
+.role-description {
+  margin: 0;
+
+  font-size: 18px;
+
+  line-height: 1.65;
+
+  color: #61748b;
+
+  max-width: 430px;
+}
+
+
+/* =================================
+   FEATURES
+================================= */
+
+.role-features {
+  list-style: none;
+
+  padding: 0;
+  margin: 30px 0;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 16px;
+}
+
+.role-features li {
+  display: flex;
+  align-items: center;
+
+  font-size: 17px;
+
+  color: #425d79;
+
+  gap: 14px;
+}
+
+
+/* =================================
+   DOTS
+================================= */
+
+.blue-dot,
+.purple-dot {
+  width: 9px;
+  height: 9px;
+
+  border-radius: 50%;
+
+  display: inline-block;
+
+  flex-shrink: 0;
+}
+
+.blue-dot {
+  background: #f59e0b;
+}
+
+.purple-dot {
+  background: #5737e8;
+}
+
+
+/* =================================
+   BUTTON
+================================= */
+
+.role-button {
+  width: 100%;
+
+  height: 68px;
+
+  margin-top: auto;
+
+  border: none;
+
+  border-radius: 35px;
+
+  color: #ffffff;
+
+  font-size: 18px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: all 0.2s ease;
+}
+
+
+/* Buyer */
+
+.customer-button {
+  background: #f59e0b;
+
+  box-shadow:
+    0 6px 15px rgba(23, 105, 224, 0.20);
+}
+
+.customer-button:hover {
+  background: #d97706;
+
+  transform: translateY(-2px);
+}
+
+
+/* Seller */
+
+.provider-button {
+  background: #f59e0b;
+
+  box-shadow:
+    0 6px 15px rgba(87, 55, 232, 0.20);
+}
+
+.provider-button:hover {
+  background: #d97706;
+
+  transform: translateY(-2px);
+}
+
+
+/* =================================
+   LOGIN SECTION
+================================= */
+
+.login-section {
+  margin-top: 55px;
+
+  text-align: center;
+
+  font-size: 17px;
+
+  color: #687b91;
+}
+
+.login-section button {
+  background: transparent;
+
+  border: none;
+
+  padding: 0;
+
+  margin-left: 5px;
+
+  color: #f59e0b;
+
+  font-size: 17px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+}
+
+.login-section button:hover {
+  text-decoration: underline;
+}
+
+
+/* =================================
+   RESPONSIVE
+================================= */
+
+@media (max-width: 900px) {
+
+  .role-cards {
+    grid-template-columns: 1fr;
+
+    gap: 30px;
+
+    max-width: 600px;
+
+    margin: 0 auto;
+  }
+
+  .role-card {
+    min-height: 500px;
+
+    padding: 40px;
+  }
+
+}
+
+
+@media (max-width: 600px) {
+
+  .register-page {
+    padding: 25px 16px;
+  }
+
+  .role-card {
+    padding: 30px;
+
+    min-height: 470px;
+
+    border-radius: 12px;
+  }
+
+  .role-icon {
+    width: 65px;
+    height: 65px;
+
+    font-size: 25px;
+
+    margin-bottom: 25px;
+  }
+
+  .role-card h2 {
+    font-size: 25px;
+  }
+
+  .role-description {
+    font-size: 16px;
+  }
+
+  .role-features li {
+    font-size: 16px;
+  }
+
+  .role-button {
+    height: 60px;
+
+    font-size: 16px;
+  }
+
+  .login-section {
+    margin-top: 35px;
+
+    font-size: 15px;
+  }
+
+  .login-section button {
+    font-size: 15px;
+  }
+}
