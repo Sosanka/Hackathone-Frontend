@@ -1,5 +1,37 @@
 
 
+@import "tailwindcss";
+
+@theme {
+  --color-leaf-50: #f0fdf4;
+  --color-leaf-100: #dcfce7;
+  --color-leaf-500: #22c55e;
+  --color-leaf-600: #16a34a;
+  --color-leaf-700: #15803d;
+  --color-leaf-800: #166534;
+  --color-leaf: #16a34a;
+  --color-leaf-dark: #15803d;
+  --color-harvest: #f59e0b;
+  --color-harvest-dark: #d97706;
+
+  --animate-banner-float: banner-float 6s ease-in-out infinite;
+  --animate-banner-shimmer: banner-shimmer 2.5s infinite linear;
+  --animate-banner-progress: banner-progress 6s linear;
+}
+
+@keyframes banner-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+@keyframes banner-shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+@keyframes banner-progress {
+  0% { width: 0%; }
+  100% { width: 100%; }
+}
+
 * {
   box-sizing: border-box;
 }

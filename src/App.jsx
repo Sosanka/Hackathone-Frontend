@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import Home from "./pages/Home";
 
 function App() {
   return (
@@ -11,7 +12,12 @@ function App() {
 
         <Route
           path="/"
-          element={<Navigate to="/login" replace />}
+          element={<Navigate to="/home" replace />}
+        />
+
+        <Route
+          path="/home"
+          element={<Home />}
         />
 
         <Route

@@ -8,6 +8,88 @@ import "../components/Auth.css";
 function Register() {
   const navigate = useNavigate();
   const [selectedRole, setSelectedRole] = useState(null);
+  const [formData, setFormData] = useState({ username: "", email: "", password: "" });
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [showOtp, setShowOtp] = useState(false);
+  const [otp, setOtp] = useState("");
+
+  const handleInputChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleRegisterSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError(null);
+
+    const endpoint = selectedRole === "provider" 
+      ? "" 
+      : "http://localhost:8000/api/v1/buyer/auth/register";
+
+    try {
+      const response = await fetch(endpoint, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: formData.username,
+          email: formData.email,
+          password: formData.password,
+          role: selectedRole
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || "Registration failed");
+      }
+
+      setShowOtp(true);
+      setError(null);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleVerifyOTP = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError(null);
+
+    const endpoint = selectedRole === "provider" 
+      ? "http://localhost:8000/api/v1/seller/auth/verify-otp" 
+      : "http://localhost:8000/api/v1/buyer/auth/verify-otp";
+
+    try {
+      const response = await fetch(endpoint, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: formData.email,
+          otp: otp
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || "OTP verification failed");
+      }
+
+      navigate("/login");
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleCustomer = () => {
     setSelectedRole("customer");
@@ -27,33 +109,80 @@ function Register() {
         <div className="auth-container">
           {/* LEFT - REGISTER FORM */}
           <div className="auth-card register-card">
-            <h1>Register</h1>
+            <h1>{showOtp ? "Verify OTP" : "Register"}</h1>
             <p className="auth-subtitle">
-              Create a {selectedRole === "customer" ? "Customer" : "Farmer/Seller"} account
+              {showOtp 
+                ? "Enter the OTP sent to your email" 
+                : `Create a ${selectedRole === "customer" ? "Customer" : "Farmer/Seller"} account`}
             </p>
 
-            <form onSubmit={(e) => e.preventDefault()}>
-              <div className="input-group">
-                <input type="text" placeholder="Username" className="form-input" />
-              </div>
-              <div className="input-group">
-                <input type="email" placeholder="Email" className="form-input" />
-              </div>
-              <div className="input-group">
-                <input type="password" placeholder="Password" className="form-input password-input" />
-              </div>
+            {showOtp ? (
+              <form onSubmit={handleVerifyOTP}>
+                <div className="input-group">
+                  <input 
+                    type="text" 
+                    placeholder="Enter OTP" 
+                    className="form-input"
+                    value={otp}
+                    onChange={(e) => setOtp(e.target.value)}
+                    required
+                  />
+                </div>
+                {error && <p style={{ color: "red", fontSize: "14px", marginTop: "10px", marginBottom: "10px" }}>{error}</p>}
+                <button type="submit" className="auth-button" disabled={loading}>
+                  {loading ? "Verifying..." : "Verify OTP"}
+                </button>
+              </form>
+            ) : (
+              <form onSubmit={handleRegisterSubmit}>
+                <div className="input-group">
+                  <input 
+                    type="text" 
+                    name="username"
+                    placeholder="Username" 
+                    className="form-input" 
+                    value={formData.username}
+                    onChange={handleInputChange}
+                    required
+                  />
+                </div>
+                <div className="input-group">
+                  <input 
+                    type="email" 
+                    name="email"
+                    placeholder="Email" 
+                    className="form-input" 
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    required
+                  />
+                </div>
+                <div className="input-group">
+                  <input 
+                    type="password" 
+                    name="password"
+                    placeholder="Password" 
+                    className="form-input password-input" 
+                    value={formData.password}
+                    onChange={handleInputChange}
+                    required
+                  />
+                </div>
 
-              <button type="submit" className="auth-button">
-                Register
-              </button>
-            </form>
+                {error && <p style={{ color: "red", fontSize: "14px", marginTop: "10px", marginBottom: "10px" }}>{error}</p>}
+
+                <button type="submit" className="auth-button" disabled={loading}>
+                  {loading ? "Registering..." : "Register"}
+                </button>
+              </form>
+            )}
 
             <button
               className="forgot-password"
-              onClick={() => setSelectedRole(null)}
+              onClick={() => showOtp ? setShowOtp(false) : setSelectedRole(null)}
               style={{ marginTop: "20px" }}
             >
-              Back to Registation
+              {showOtp ? "Back to Registration" : "Back to Role Selection"}
             </button>
           </div>
 
