@@ -1,1 +1,135 @@
-@import "tailwindcss";
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+             
+            
+  margin: 0;
+  
+
+  min-height: 100%;
+  width: 100%;
+}
+
+body {
+  margin: 0;
+
+  background: #ffffff;
+}
+
+/* Card Container */
+.auth-card {
+  width: 100%;
+  max-width: 420px;
+  margin: 40px auto;
+  padding: 36px 32px;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+  box-sizing: border-box;
+}
+
+/* Titles */
+.auth-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: #0f2d4a;
+  margin: 0 0 8px 0;
+}
+
+.auth-subtitle {
+  font-size: 14px;
+  color: #64748b;
+  margin: 0 0 28px 0;
+}
+
+/* Input Fields */
+.input-group {
+  position: relative;
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.form-input {
+  width: 100%;
+  height: 48px;
+  padding: 0 20px;
+  font-size: 14px;
+  color: #1e293b;
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 9999px;
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-input:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+}
+
+.form-input::placeholder {
+  color: #94a3b8;
+}
+
+.form-input.password-input {
+  padding-right: 48px;
+}
+
+/* Eye Toggle Button */
+.eye-toggle-btn {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  padding: 4px;
+  margin: 0;
+  cursor: pointer;
+  color: #94a3b8;
+}
+
+.eye-toggle-btn:hover {
+  color: #475569;
+}
+
+/* Orange Action Button */
+.auth-btn {
+  width: 100%;
+  height: 48px;
+  background-color: #f59e0b;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  border-radius: 9999px;
+  cursor: pointer;
+  margin-top: 12px;
+  transition: background-color 0.2s ease;
+}
+
+.auth-btn:hover {
+  background-color: #d97706;
+}
+
+/* Footer Link */
+.auth-footer {
+  text-align: center;
+  margin-top: 24px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #f59e0b;
+  cursor: pointer;
+}
+
+.auth-footer:hover {
+  text-decoration: underline;
+}
