@@ -1,1 +1,11 @@
 @import "tailwindcss";
+
+:root {
+  --theme-bg-main: #f8fafc; /* Tailwind slate-50 */
+}
+
+body {
+  background-color: var(--theme-bg-main);
+  color: #334155; /* Tailwind slate-700 */
+  font-family: ui-sans-serif, system-ui, sans-serif;
+}
