@@ -325,61 +325,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Bus Parcel Delivery Banner */}
-        <section className="py-12 bg-white">
-          <div className="mx-auto max-w-7xl px-4">
-            <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-sky-600 to-sky-700 p-8 sm:p-12 shadow-lg">
-              <div className="absolute inset-0 opacity-10">
-                <div className="absolute top-4 right-8 text-8xl">🚌</div>
-                <div className="absolute bottom-4 left-1/3 text-6xl opacity-50">📦</div>
-              </div>
-              <div className="relative grid md:grid-cols-2 gap-8 items-center">
-                <div>
-                  <div className="inline-flex items-center gap-1.5 rounded-full bg-white/20 px-3 py-1 text-xs font-semibold text-white mb-4">
-                    <Bus className="h-3.5 w-3.5" /> Unique to Jaikisan
-                  </div>
-                  <h2 className="text-2xl sm:text-4xl font-bold text-white mb-4">Bus Parcel Delivery</h2>
-                  <p className="text-sky-100 text-sm sm:text-base leading-relaxed max-w-md">
-                    We use the state bus network for affordable last-mile delivery. Starting at just <span className="font-bold text-white">₹30</span>.
-                  </p>
-                  <div className="mt-6 flex flex-wrap gap-4">
-                    <div className="flex items-center gap-2 text-xs sm:text-sm text-white/90 font-medium">
-                      <div className="flex items-center justify-center w-8 h-8 rounded-full bg-white/20">
-                        <Truck className="h-4 w-4 text-white" />
-                      </div>
-                      Same-day dispatch
-                    </div>
-                    <div className="flex items-center gap-2 text-xs sm:text-sm text-white/90 font-medium">
-                      <div className="flex items-center justify-center w-8 h-8 rounded-full bg-white/20">
-                        <MapPin className="h-4 w-4 text-white" />
-                      </div>
-                      Pick up at bus stand
-                    </div>
-                  </div>
-                </div>
-                <div className="hidden md:flex justify-end">
-                  <div className="bg-white/10 backdrop-blur-md border border-white/20 p-6 rounded-2xl max-w-xs w-full text-white">
-                    <h3 className="font-bold mb-2">How it works</h3>
-                    <ol className="text-sm space-y-3 text-sky-50">
-                      <li className="flex gap-2">
-                        <span className="font-bold text-leaf-400">1.</span> Order from farmer
-                      </li>
-                      <li className="flex gap-2">
-                        <span className="font-bold text-leaf-400">2.</span> Farmer drops at local bus stand
-                      </li>
-                      <li className="flex gap-2">
-                        <span className="font-bold text-leaf-400">3.</span> Bus transports to your city
-                      </li>
-                      <li className="flex gap-2">
-                        <span className="font-bold text-leaf-400">4.</span> You pick up from your bus stand
-                      </li>
-                    </ol>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+
 
         {/* Trending Products */}
         <section className="py-12 bg-slate-50 border-t border-slate-100">
