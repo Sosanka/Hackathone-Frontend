@@ -10,7 +10,7 @@ const getAuthHeaders = () => {
 
 export const profileService = {
   updateOnboarding: async (profileData) => {
-    const response = await axios.put(`${API_URL}/seller/profile`, profileData, {
+    const response = await axios.put(`${API_URL}/seller/account/create`, profileData, {
       headers: getAuthHeaders(),
     });
     localStorage.setItem('onboarding_completed', 'true');
@@ -18,7 +18,7 @@ export const profileService = {
   },
 
   checkOnboardingStatus: async () => {
-    const response = await axios.get(`${API_URL}/seller/profile`, {
+    const response = await axios.get(`${API_URL}/seller/account/create`, {
       headers: getAuthHeaders(),
     });
     return response.data;
