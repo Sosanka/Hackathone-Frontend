@@ -11,7 +11,6 @@ export default function MyListings() {
   const [isLoading, setIsLoading] = useState(true);
   const [pageError, setPageError] = useState('');
 
-  // Fetch products when the page loads
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -19,8 +18,6 @@ export default function MyListings() {
         setInventory(data);
       } catch (error) {
         console.error("Failed to fetch products:", error);
-        
-        // If unauthorized, kick back to login
         if (error.response?.status === 401 || error.message.includes('token')) {
           localStorage.removeItem('access_token');
           navigate('/login');
@@ -35,9 +32,34 @@ export default function MyListings() {
     fetchProducts();
   }, [navigate]);
 
-  // Handler to update the table immediately when a new listing is created
   const handleAddListing = (newProduct) => {
     setInventory([newProduct, ...inventory]); 
+  };
+
+  const handleDeleteListing = async (productId) => {
+    if (!window.confirm("Are you sure you want to delete this listing?")) return;
+    try {
+      await productService.deleteProduct(productId);
+      setInventory(inventory.filter(item => item.id !== productId));
+    } catch (error) {
+      console.error("Failed to delete product:", error);
+      alert("Failed to delete product from database.");
+    }
+  };
+
+  const handleUpdateStock = async (productId, actionType, value) => {
+    try {
+      // Calls backend endpoint to perform calculation and return updated product
+      const updatedProduct = await productService.adjustStock(productId, actionType, value);
+      
+      // Update inventory state with the server's calculated response
+      setInventory(inventory.map(item => 
+        item.id === productId ? updatedProduct : item
+      ));
+    } catch (error) {
+      console.error("Failed to update stock:", error);
+      alert(error.response?.data?.detail || "Failed to update stock quantity.");
+    }
   };
 
   return (
@@ -68,7 +90,11 @@ export default function MyListings() {
               <p className="text-slate-500 font-medium">Loading inventory...</p>
             </div>
           ) : (
-            <InventoryTable data={inventory} />
+            <InventoryTable 
+              data={inventory} 
+              onDelete={handleDeleteListing} 
+              onUpdateStock={handleUpdateStock}
+            />
           )}
         </div>
       </div>
