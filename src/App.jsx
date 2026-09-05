@@ -21,7 +21,7 @@ import Home from "./pages/Home";
 import ProfileUpdatePage from "./pages/ProfileUpdatePage";
 import Onboarding from "./pages/user/Onboarding";
 import UserRegister from "./pages/user/auth/UserRegister";
-
+import UserLogin from "./pages/user/auth/UserLogin";
 function App() {
   return (
     <Router>
@@ -35,6 +35,7 @@ function App() {
           <Route path="/register" element={<SellerRegister />} />
           <Route path="/verify-otp" element={<VerifyOtpPage />} />
           <Route path="/user/register" element={<UserRegister />} />
+          <Route path="/user/login" element={<UserLogin />} />
 
           {/* Onboarding & Profile */}
           <Route path="/onboarding" element={<Onboarding />} />

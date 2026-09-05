@@ -18,9 +18,9 @@ export default function UserRegister() {
   const [step, setStep] = useState("register");
   const [email, setEmail] = useState("");
 
-  // ================================
+  // ============================================================
   // REGISTER
-  // ================================
+  // ============================================================
 
   const handleRegister = async (formData) => {
     const data = await registerUser(formData);
@@ -31,9 +31,9 @@ export default function UserRegister() {
     return data;
   };
 
-  // ================================
+  // ============================================================
   // VERIFY OTP
-  // ================================
+  // ============================================================
 
   const handleVerifyOtp = async (otp) => {
     const data = await verifyUserOtp({
@@ -45,40 +45,59 @@ export default function UserRegister() {
     setUserToken(data.access_token);
 
     // User authenticated
-    navigate("/user/dashboard");
+    navigate("/user/dashboard", {
+      replace: true,
+    });
 
     return data;
   };
 
-  // ================================
+  // ============================================================
   // RESEND OTP
-  // ================================
+  // ============================================================
 
   const handleResendOtp = async () => {
     return await resendUserOtp(email);
   };
 
-  // ================================
-  // BACK
-  // ================================
+  // ============================================================
+  // BACK TO REGISTER
+  // ============================================================
 
   const handleBack = () => {
     setStep("register");
   };
 
+  // ============================================================
+  // SWITCH TO LOGIN
+  // ============================================================
+
+  const handleSwitchToLogin = () => {
+    navigate("/login");
+  };
+
+  // ============================================================
+  // UI
+  // ============================================================
+
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="mx-auto flex min-h-screen max-w-6xl items-center justify-center px-4 py-10">
         <div className="grid w-full overflow-hidden rounded-3xl bg-white shadow-xl md:grid-cols-2">
-          {/* ==========================
-              LEFT
-          ========================== */}
+          {/* ======================================================
+              LEFT - FORM
+          ====================================================== */}
 
           <div className="p-8 sm:p-10 lg:p-12">
+            {/* REGISTER */}
             {step === "register" && (
-              <UserRegisterForm onSubmit={handleRegister} />
+              <UserRegisterForm
+                onSubmit={handleRegister}
+                onSwitchToLogin={handleSwitchToLogin}
+              />
             )}
 
+            {/* OTP */}
             {step === "otp" && (
               <UserOtpVerification
                 email={email}
@@ -89,22 +108,27 @@ export default function UserRegister() {
             )}
           </div>
 
-          {/* ==========================
-              RIGHT
-          ========================== */}
+          {/* ======================================================
+              RIGHT - QUICKKY INFORMATION
+          ====================================================== */}
 
           <div className="hidden bg-gradient-to-br from-green-600 to-emerald-700 p-12 text-white md:flex md:flex-col md:items-center md:justify-center">
             <div className="max-w-sm text-center">
+              {/* Icon */}
               <div className="mb-6 text-6xl">🥬</div>
 
+              {/* Heading */}
               <h2 className="text-3xl font-bold">Welcome to Quickky</h2>
 
+              {/* Description */}
               <p className="mt-4 leading-7 text-green-50">
                 Connect with local farmers and discover fresh surplus produce at
                 affordable prices.
               </p>
 
+              {/* Features */}
               <div className="mt-8 space-y-4 text-left">
+                {/* Feature 1 */}
                 <div className="flex items-center gap-3">
                   <span className="flex h-7 w-7 items-center justify-center rounded-full bg-white/20">
                     ✓
@@ -113,6 +137,7 @@ export default function UserRegister() {
                   <span>Fresh surplus produce</span>
                 </div>
 
+                {/* Feature 2 */}
                 <div className="flex items-center gap-3">
                   <span className="flex h-7 w-7 items-center justify-center rounded-full bg-white/20">
                     ✓
@@ -121,6 +146,7 @@ export default function UserRegister() {
                   <span>Affordable prices</span>
                 </div>
 
+                {/* Feature 3 */}
                 <div className="flex items-center gap-3">
                   <span className="flex h-7 w-7 items-center justify-center rounded-full bg-white/20">
                     ✓
