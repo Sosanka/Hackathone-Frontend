@@ -1,9 +1,21 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { logoutSeller } from '../api/services/sellerAuth';
 
 const Sidebar = ({ activeTab }) => {
   const navigate = useNavigate();
   const [isCollapsed, setIsCollapsed] = useState(false);
+
+  const handleLogout = async () => {
+    try {
+      await logoutSeller();
+    } catch (error) {
+      console.error("Logout failed:", error);
+    } finally {
+      localStorage.removeItem("access_token");
+      navigate("/login");
+    }
+  };
 
   const navItems = [
     { 
@@ -91,6 +103,7 @@ const Sidebar = ({ activeTab }) => {
       <div className="px-3 mt-auto overflow-hidden">
         <button 
           title={isCollapsed ? "Logout" : ""}
+          onClick={handleLogout}
           className="cursor-pointer flex items-center gap-3 w-full text-left px-3 py-3 text-md font-medium text-green-200 hover:text-white hover:bg-green-800 rounded-xl transition-colors whitespace-nowrap"
         >
           <svg className="w-6 h-6 flex-shrink-0 rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
