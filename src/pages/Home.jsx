@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { 
   Search, MapPin, ChevronDown, Menu, ShoppingCart, Leaf, User,
-  Users, Sprout, Truck, Bus
+  Users, Sprout, Truck, Bus, ShoppingBasket, IndianRupee, Handshake
 } from 'lucide-react';
 
 export default function Home() {
@@ -52,8 +52,8 @@ export default function Home() {
                 <Leaf className="w-5 h-5" />
               </div>
               <div>
-                <span className="text-lg sm:text-xl font-extrabold text-leaf-800 tracking-tight">jai</span>
-                <span className="text-lg sm:text-xl font-extrabold text-leaf-600 tracking-tight">kisan</span>
+                <span className="text-lg sm:text-xl font-extrabold text-leaf-800 tracking-tight text-green-700">Agri</span>
+                <span className="text-lg sm:text-xl font-extrabold text-leaf-600 tracking-tight text-green-500">Choice</span>
               </div>
             </Link>
 
@@ -132,86 +132,161 @@ export default function Home() {
         </div>
 
         {/* Hero Section */}
-        <section className="relative overflow-hidden bg-gradient-to-b from-leaf-50 via-white to-white py-14 pb-20">
-          <div className="relative mx-auto max-w-7xl px-4">
-            <div className="text-center max-w-3xl mx-auto">
-              <div className="inline-flex items-center gap-2 rounded-full bg-leaf-100 px-4 py-1.5 text-xs font-semibold text-leaf-700 mb-6">
-                <Leaf className="h-3.5 w-3.5" />
-                India's #1 Farm-to-Consumer Marketplace
-              </div>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight leading-[1.1]">
-                Fresh from the{' '}
-                <span className="relative inline-block text-leaf">
-                  Farm
-                  <svg className="absolute -bottom-1 left-0 w-full" viewBox="0 0 200 12" fill="none">
-                    <path d="M2 8C30 3 70 2 100 4C130 6 170 3 198 8" stroke="#16A34A" strokeWidth="3" strokeLinecap="round" opacity="0.3"></path>
-                  </svg>
-                </span>,
-                <br />Direct to your <span className="text-harvest">Home</span>
-              </h1>
-              <p className="mt-5 text-lg text-slate-500 max-w-xl mx-auto leading-relaxed">
-                Buy vegetables, fruits, grains & dairy products directly from local farmers. No middlemen. Better prices. Fresher produce.
-              </p>
-              
-              <div className="mt-8 max-w-lg mx-auto">
-                <form className="relative flex items-center" onSubmit={handleSearch}>
-                  <Search className="absolute left-4 h-5 w-5 text-slate-400 pointer-events-none" />
-                  <input 
-                    type="text" 
-                    placeholder='Try "tomatoes near me" or "organic rice"' 
-                    className="w-full h-14 rounded-2xl border-2 bg-white pl-12 pr-24 text-base outline-none transition-all focus:border-leaf focus:ring-4 focus:ring-leaf/10 shadow-lg shadow-slate-200/50 placeholder:text-slate-400 border-slate-200"
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                  />
-                  <div className="absolute right-2">
-                    <button type="submit" className="flex items-center gap-2 rounded-xl bg-leaf px-5 py-2.5 text-sm font-bold text-white hover:bg-leaf-dark transition-colors shadow-md shadow-leaf/20">
-                      Search
-                    </button>
-                  </div>
-                </form>
-                
-                <div className="mt-4 flex flex-wrap justify-center gap-2">
-                  {['Tomatoes', 'Rice', 'Organic Vegetables', 'Fresh Milk', 'Mangoes'].map(term => (
-                    <button key={term} className="rounded-full bg-white border border-slate-200 px-3 py-1 text-xs text-slate-500 hover:border-leaf hover:text-leaf-700 hover:bg-leaf-50 transition-colors">
-                      {term}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              {/* Stats */}
-              <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-2xl mx-auto border-t border-slate-100 pt-8">
-                <div className="flex items-center justify-center gap-3">
-                  <Users className="h-6 w-6 text-leaf-500" />
-                  <div className="text-left">
-                    <p className="text-xl font-extrabold text-slate-800">31K+</p>
-                    <p className="text-[10px] text-slate-400 font-medium uppercase tracking-wider">Farmers</p>
-                  </div>
-                </div>
-                <div className="flex items-center justify-center gap-3">
-                  <Sprout className="h-6 w-6 text-leaf-500" />
-                  <div className="text-left">
-                    <p className="text-xl font-extrabold text-slate-800">2.7K+</p>
-                    <p className="text-[10px] text-slate-400 font-medium uppercase tracking-wider">Products</p>
-                  </div>
-                </div>
-                <div className="flex items-center justify-center gap-3">
-                  <MapPin className="h-6 w-6 text-leaf-500" />
-                  <div className="text-left">
-                    <p className="text-xl font-extrabold text-slate-800">680+</p>
-                    <p className="text-[10px] text-slate-400 font-medium uppercase tracking-wider">Districts</p>
-                  </div>
-                </div>
-                <div className="flex items-center justify-center gap-3">
-                  <Truck className="h-6 w-6 text-leaf-500" />
-                  <div className="text-left">
-                    <p className="text-xl font-extrabold text-slate-800">50K+</p>
-                    <p className="text-[10px] text-slate-400 font-medium uppercase tracking-wider">Deliveries</p>
-                  </div>
-                </div>
-              </div>
-
+        <section className="relative w-full max-w-[1400px] mx-auto mt-4 px-4 sm:px-6 lg:px-8 mb-12">
+          <div className="relative rounded-3xl overflow-hidden min-h-[600px] h-full shadow-2xl flex flex-col md:flex-row items-center">
+            {/* Background Image */}
+            <div className="absolute inset-0">
+              <img 
+                src="/farmer_hero_bg.jpg" 
+                alt="Farmer in field" 
+                className="w-full h-full object-cover object-[70%_center] md:object-center"
+              />
+              {/* Gradient Overlay for text readability */}
+              <div className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-green-950/90 via-green-900/70 to-transparent"></div>
             </div>
+
+            {/* Content Container */}
+            <div className="relative z-10 w-full flex flex-col md:flex-row justify-between h-full pt-16 pb-40 px-6 md:px-12 lg:px-16">
+              
+              {/* Left Column (Main Text & Features) */}
+              <div className="flex flex-col justify-center max-w-2xl h-full">
+                
+                {/* Badge */}
+                <div className="inline-flex items-center gap-2 bg-white/95 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-bold text-green-800 mb-6 w-fit shadow-sm">
+                  <Leaf className="w-4 h-4 text-green-600" />
+                  Rural Produce Surplus Exchange
+                </div>
+
+                {/* Title */}
+                <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold text-white tracking-tight leading-[1.1] mb-6">
+                  From Surplus<br />to <span className="text-green-400 drop-shadow-md">Shared Success</span>
+                </h1>
+
+                {/* Subtitle with underline */}
+                <div className="relative mb-6 pb-2 inline-block self-start">
+                  <div className="flex items-center gap-2 text-white font-bold text-base md:text-xl">
+                    <Leaf className="w-4 h-4 md:w-5 md:h-5 text-green-400" />
+                    <span>Reduce Waste. Support Farmers. Feed Communities.</span>
+                  </div>
+                  <div className="absolute bottom-0 left-0 h-1 w-full bg-green-500 rounded-full"></div>
+                </div>
+
+                <p className="text-lg md:text-xl text-green-50 max-w-xl mb-10 font-medium leading-relaxed drop-shadow-md">
+                  A platform that connects local farmers with buyers to reduce waste and maximize value.
+                </p>
+
+                {/* Horizontal Features */}
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-12 md:mb-8 md:bg-white/10 md:backdrop-blur-md md:p-6 rounded-2xl md:border md:border-white/20">
+                  <div className="flex flex-row sm:flex-col items-center sm:items-start gap-4 sm:gap-2">
+                    <div className="w-12 h-12 sm:w-10 sm:h-10 shrink-0 rounded-full bg-green-500/30 flex items-center justify-center border border-green-400/30">
+                      <ShoppingBasket className="w-5 h-5 text-white" />
+                    </div>
+                    <div>
+                      <h3 className="font-bold text-white text-lg">List Surplus</h3>
+                      <p className="text-sm text-green-100">Farmers list extra produce in minutes</p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex flex-row sm:flex-col items-center sm:items-start gap-4 sm:gap-2">
+                    <div className="w-12 h-12 sm:w-10 sm:h-10 shrink-0 rounded-full bg-green-500/30 flex items-center justify-center border border-green-400/30">
+                      <Users className="w-5 h-5 text-white" />
+                    </div>
+                    <div>
+                      <h3 className="font-bold text-white text-lg">Reserve</h3>
+                      <p className="text-sm text-green-100">Buyers reserve with ease</p>
+                    </div>
+                  </div>
+
+                  <div className="flex flex-row sm:flex-col items-center sm:items-start gap-4 sm:gap-2">
+                    <div className="w-12 h-12 sm:w-10 sm:h-10 shrink-0 rounded-full bg-green-500/30 flex items-center justify-center border border-green-400/30">
+                      <Truck className="w-5 h-5 text-white" />
+                    </div>
+                    <div>
+                      <h3 className="font-bold text-white text-lg">Group Pickup</h3>
+                      <p className="text-sm text-green-100">Save time with coordinated pickup</p>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+              {/* Right Side Menu Block */}
+              <div className="hidden lg:flex flex-col justify-center items-end self-center mt-[-60px] mr-[-16px]">
+                <div className="bg-black/40 backdrop-blur-md rounded-l-2xl py-8 px-6 border-y border-l border-white/10 flex flex-col gap-8 shadow-2xl">
+                  
+                  <div className="flex items-center gap-4 text-white hover:text-green-300 transition-colors cursor-pointer group">
+                    <div className="w-8 h-8 rounded-full border border-white/30 flex items-center justify-center group-hover:border-green-300 transition-colors">
+                      <Leaf className="w-4 h-4" />
+                    </div>
+                    <span className="font-semibold text-lg">Fresh Produce</span>
+                  </div>
+                  
+                  <div className="flex items-center gap-4 text-white hover:text-green-300 transition-colors cursor-pointer group">
+                    <div className="w-8 h-8 rounded-full border border-white/30 flex items-center justify-center group-hover:border-green-300 transition-colors">
+                      <IndianRupee className="w-4 h-4" />
+                    </div>
+                    <span className="font-semibold text-lg">Fair Prices</span>
+                  </div>
+
+                  <div className="flex items-center gap-4 text-white hover:text-green-300 transition-colors cursor-pointer group">
+                    <div className="w-8 h-8 rounded-full border border-white/30 flex items-center justify-center group-hover:border-green-300 transition-colors">
+                      <Users className="w-4 h-4" />
+                    </div>
+                    <span className="font-semibold text-lg">Local Impact</span>
+                  </div>
+
+                  <div className="flex items-center gap-4 text-white hover:text-green-300 transition-colors cursor-pointer group">
+                    <div className="w-8 h-8 rounded-full border border-white/30 flex items-center justify-center group-hover:border-green-300 transition-colors">
+                      <Handshake className="w-4 h-4" />
+                    </div>
+                    <span className="font-semibold text-lg">Stronger Together</span>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+            {/* Bottom Stats Bar */}
+            <div className="absolute bottom-6 left-6 right-6 md:left-12 md:right-auto md:w-auto bg-[#E8EFE3]/95 backdrop-blur-sm rounded-2xl px-6 py-4 flex flex-wrap gap-4 md:gap-8 items-center shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-white/60 z-20 justify-between md:justify-start">
+              <div className="flex items-center gap-3">
+                <Users className="w-6 h-6 md:w-7 md:h-7 text-green-700" />
+                <div>
+                  <div className="font-black text-lg md:text-xl text-green-950 leading-none">500+</div>
+                  <div className="text-[10px] md:text-xs font-semibold text-green-800 mt-1 uppercase tracking-wide">Farmers</div>
+                </div>
+              </div>
+              
+              <div className="w-px h-8 bg-green-900/10 hidden md:block"></div>
+
+              <div className="flex items-center gap-3">
+                <ShoppingBasket className="w-6 h-6 md:w-7 md:h-7 text-green-700" />
+                <div>
+                  <div className="font-black text-lg md:text-xl text-green-950 leading-none">2.5K+</div>
+                  <div className="text-[10px] md:text-xs font-semibold text-green-800 mt-1 uppercase tracking-wide">Listings</div>
+                </div>
+              </div>
+
+              <div className="w-px h-8 bg-green-900/10 hidden md:block"></div>
+
+              <div className="flex items-center gap-3">
+                <Users className="w-6 h-6 md:w-7 md:h-7 text-green-700" />
+                <div>
+                  <div className="font-black text-lg md:text-xl text-green-950 leading-none">10K+</div>
+                  <div className="text-[10px] md:text-xs font-semibold text-green-800 mt-1 uppercase tracking-wide">Happy Buyers</div>
+                </div>
+              </div>
+
+              <div className="w-px h-8 bg-green-900/10 hidden lg:block"></div>
+
+              <div className="flex items-center gap-3 w-full md:w-auto mt-2 md:mt-0 pt-2 md:pt-0 border-t border-green-900/10 md:border-0">
+                <Leaf className="w-6 h-6 md:w-7 md:h-7 text-green-700" />
+                <div>
+                  <div className="font-black text-lg md:text-xl text-green-950 leading-none">Tons of</div>
+                  <div className="text-[10px] md:text-xs font-semibold text-green-800 mt-1 uppercase tracking-wide">Food Saved</div>
+                </div>
+              </div>
+            </div>
+            
           </div>
         </section>
 
