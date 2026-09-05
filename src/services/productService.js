@@ -7,12 +7,8 @@ export const productService = {
    */
   createListing: async (formData) => {
     try {
-      // The backend expects multipart/form-data because of the UploadFile
-      const response = await apiClient.post('/products', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
+      // Let Axios handle the headers automatically for FormData
+      const response = await apiClient.post('/products', formData);
       return response.data;
     } catch (error) {
       // Throw the error so the UI can catch and display it
