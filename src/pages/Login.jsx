@@ -10,7 +10,6 @@ function Login() {
 
   const [formData, setFormData] = useState({
     email: "",
-    email: "",
     password: "",
   });
 
@@ -112,6 +111,7 @@ function Login() {
             Forgot your password?
           </button>
         </div>
+        
         {/* RIGHT SIDE */}
         <div className="auth-side">
           <h2>Don't have an account?</h2>
