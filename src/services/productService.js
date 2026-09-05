@@ -1,18 +1,31 @@
-import apiClient from '../api/axios';
+import axios from 'axios';
+
+const API_URL = 'https://hackathone-backend-pgu1.vercel.app/api/v1';
+
+// Helper to grab token and format headers
+const getAuthHeaders = () => {
+  const token = localStorage.getItem('access_token');
+  if (!token) throw new Error('No authentication token found. Please log in.');
+  return { 'Authorization': `Bearer ${token}` };
+};
 
 export const productService = {
-  /**
-   * Create a new product listing
-   * @param {FormData} formData - The multipart/form-data payload
-   */
+  // POST /api/v1/seller/products
   createListing: async (formData) => {
-    try {
-      // Let Axios handle the headers automatically for FormData
-      const response = await apiClient.post('/products', formData);
-      return response.data;
-    } catch (error) {
-      // Throw the error so the UI can catch and display it
-      throw error.response?.data?.detail || 'Failed to create product listing';
-    }
+    const response = await axios.post(`${API_URL}/seller/products`, formData, {
+      headers: {
+        ...getAuthHeaders(),
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    return response.data;
   },
+
+  // GET /api/v1/seller/products
+  getSellerProducts: async () => {
+    const response = await axios.get(`${API_URL}/seller/products`, {
+      headers: getAuthHeaders(),
+    });
+    return response.data;
+  }
 };
