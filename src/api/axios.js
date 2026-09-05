@@ -3,7 +3,7 @@ import axios from 'axios';
 // Create a centralized Axios instance
 const apiClient = axios.create({
   // Based on your backend docs link and route comments
-  baseURL: 'https://hackathone-backend-pgu1.vercel.app/api/v1/seller', 
+  baseURL: 'https://hackathone-backend-pgu1.vercel.app/api/v1', 
 });
 
 // Request Interceptor: Attach Auth Token automatically
