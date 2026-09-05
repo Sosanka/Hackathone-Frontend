@@ -5,6 +5,11 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
+
+import Dashboard from "./pages/user/Dashboard";
+import MyListings from "./pages/user/MyListings";
+import LiveStocks from "./pages/user/LiveStocks";
+
 import Dashboard from "./pages/user/Dashboard";
 import MyListings from "./pages/user/MyListings";
 import LiveStocks from "./pages/user/LiveStocks";
@@ -13,17 +18,43 @@ import SellerRegister from "./pages/SellerRegister";
 import Home from "./pages/Home";
 import UserRegister from "./pages/user/auth/UserRegister";
 
+import ProfileUpdatePage from "./pages/ProfileUpdatePage";
+import Onboarding from "./pages/user/Onboarding";
+import UserRegister from "./pages/user/auth/UserRegister";
+
 function App() {
   return (
     <Router>
       <Routes>
+
+        {/* Default */}
+        <Route
+          path="/"
+          element={<Navigate to="/dashboard" replace />}
+        />
+
+        {/* Authentication */}
         <Route path="/" element={<Navigate to="/dashboard" replace />} />
         {/* Login */}
         <Route path="/login" element={<Login />} />
-
-        {/* Seller Registration */}
         <Route path="/register" element={<SellerRegister />} />
+        <Route
+          path="/user/register"
+          element={<UserRegister />}
+        />
 
+        {/* Onboarding & Profile */}
+        <Route
+          path="/onboarding"
+          element={<Onboarding />}
+        />
+
+        <Route
+          path="/profile-update"
+          element={<ProfileUpdatePage />}
+        />
+
+        {/* Home */}
         <Route path="/home" element={<Home />} />
 
         <Route path="/dashboard" element={<Dashboard />} />
