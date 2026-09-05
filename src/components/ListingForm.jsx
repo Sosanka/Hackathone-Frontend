@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { productService } from '../services/productService';
 
 const ListingForm = ({ onSubmit }) => {
   const [formData, setFormData] = useState({
@@ -12,6 +13,10 @@ const ListingForm = ({ onSubmit }) => {
     image: null
   });
 
+  const [isLoading, setIsLoading] = useState(false);
+  const [errorMsg, setErrorMsg] = useState('');
+  const [successMsg, setSuccessMsg] = useState('');
+
   // Prevent negative numbers and 'e' (exponent) from being typed
   const blockInvalidNumberChars = (e) => {
     if (e.key === '-' || e.key === 'e' || e.key === 'E') {
@@ -19,26 +24,62 @@ const ListingForm = ({ onSubmit }) => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
+    setErrorMsg('');
+    setSuccessMsg('');
     
-    // To send an image to the backend, we must use FormData instead of a standard JSON object
+    // Map frontend state to EXACT backend Form(...) field names
     const submitData = new FormData();
-    Object.keys(formData).forEach(key => {
-      submitData.append(key, formData[key]);
-    });
-
-    onSubmit(formData); // We pass formData for local preview, backend will use submitData
+    submitData.append('product_name', formData.produceName);
+    submitData.append('quantity', formData.quantity);
+    submitData.append('unit', formData.unit);
+    submitData.append('price_per_unit', formData.price);
+    submitData.append('location_name', formData.location);
+    submitData.append('description', formData.pickupInfo); // Mapping pickup info to description
     
-    // Reset form
-    setFormData({ produceName: '', quantity: '', unit: 'kg', price: '', location: '', availableUntil: '', pickupInfo: '', image: null });
-    e.target.reset(); // Resets the file input UI
+    // The backend expects a 'date', so we extract YYYY-MM-DD from the datetime-local string
+    if (formData.availableUntil) {
+      const dateOnly = formData.availableUntil.split('T')[0];
+      submitData.append('best_before_date', dateOnly);
+    }
+
+    if (formData.image) {
+      submitData.append('image', formData.image);
+    }
+
+    try {
+      // 1. Send to Backend API
+      const newProduct = await productService.createListing(submitData);
+      
+      // 2. Update local UI state (passing backend response back to parent)
+      onSubmit(newProduct); 
+      
+      // 3. Show Success & Reset
+      setSuccessMsg('Produce listed successfully!');
+      setFormData({ produceName: '', quantity: '', unit: 'kg', price: '', location: '', availableUntil: '', pickupInfo: '', image: null });
+      e.target.reset();
+
+      // Clear success message after 3 seconds
+      setTimeout(() => setSuccessMsg(''), 3000);
+
+    } catch (error) {
+      console.error("Listing error:", error);
+      setErrorMsg(error.toString());
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
     <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
       <h2 className="text-lg font-bold text-slate-800 mb-6 uppercase tracking-wide">Add New Produce</h2>
       
+      {/* Feedback Messages */}
+      {errorMsg && <div className="mb-4 p-3 bg-red-50 text-red-700 text-sm rounded-lg border border-red-200">{errorMsg}</div>}
+      {successMsg && <div className="mb-4 p-3 bg-green-50 text-green-700 text-sm rounded-lg border border-green-200">{successMsg}</div>}
+
       <form onSubmit={handleSubmit} className="space-y-4 text-sm text-slate-700">
         
         {/* Image Upload */}
@@ -49,7 +90,7 @@ const ListingForm = ({ onSubmit }) => {
             accept="image/*"
             required
             onChange={(e) => setFormData({...formData, image: e.target.files[0]})}
-            className="w-full text-sm text-slate-500 file:mr-4 file:py-2.5 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-emerald-50 file:text-emerald-700 hover:file:bg-emerald-100 transition-colors"
+            className="cursor-pointer w-full text-sm text-slate-500 file:mr-4 file:py-2.5 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-emerald-50 file:text-emerald-700 hover:file:bg-emerald-100 transition-colors file:cursor-pointer"
           />
         </div>
 
@@ -133,9 +174,17 @@ const ListingForm = ({ onSubmit }) => {
 
         <button 
           type="submit" 
-          className="w-full mt-2 bg-emerald-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-emerald-700 transition-colors shadow-sm"
+          disabled={isLoading}
+          className={`cursor-pointer w-full mt-2 text-white font-bold py-3 px-4 rounded-lg transition-colors shadow-sm flex justify-center items-center ${
+            isLoading ? 'bg-emerald-400 cursor-not-allowed' : 'bg-emerald-600 hover:bg-emerald-700'
+          }`}
         >
-          Post Listing
+          {isLoading ? (
+            <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+          ) : 'Post Listing'}
         </button>
       </form>
     </div>
