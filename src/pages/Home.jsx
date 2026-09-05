@@ -42,69 +42,74 @@ export default function Home() {
       </div>
 
       {/* Header / Navbar */}
-      <header className="sticky top-0 z-50 bg-white border-b border-slate-100 shadow-sm">
+      <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-xl border-b border-slate-200/50 shadow-[0_4px_30px_rgba(0,0,0,0.03)] transition-all duration-300">
         <div className="mx-auto max-w-7xl px-4">
-          <div className="flex h-16 items-center gap-2 sm:gap-4">
+          <div className="flex h-20 items-center gap-3 sm:gap-6">
             
             {/* Logo */}
-            <Link className="flex items-center gap-1.5 sm:gap-2 shrink-0" to="/">
-              <div className="w-8 h-8 sm:w-9 sm:h-9 bg-leaf-600 rounded-full flex items-center justify-center text-white font-bold">
-                <Leaf className="w-5 h-5" />
+            <Link className="flex items-center gap-2 sm:gap-3 shrink-0 group" to="/">
+              <div className="w-10 h-10 bg-gradient-to-br from-emerald-500 to-green-600 rounded-xl flex items-center justify-center text-white font-bold shadow-lg shadow-emerald-500/30 group-hover:scale-105 transition-transform duration-300">
+                <Leaf className="w-6 h-6" />
               </div>
-              <div>
-                <span className="text-lg sm:text-xl font-extrabold text-leaf-800 tracking-tight text-green-700">Agri</span>
-                <span className="text-lg sm:text-xl font-extrabold text-leaf-600 tracking-tight text-green-500">Choice</span>
+              <div className="hidden sm:block">
+                <span className="text-2xl font-extrabold tracking-tight text-emerald-800">Agri</span>
+                <span className="text-2xl font-extrabold tracking-tight text-emerald-500">Choice</span>
               </div>
             </Link>
 
             {/* Location Selector */}
-            <div className="shrink-0 hidden md:block">
-              <button className="flex items-center gap-1 sm:gap-1.5 rounded-full bg-leaf-50 px-2 sm:px-3 py-1.5 text-xs sm:text-sm text-leaf-700 hover:bg-leaf-100 transition-colors">
-                <MapPin className="h-3.5 w-3.5" />
-                <span className="font-medium max-w-[72px] sm:max-w-[120px] truncate">Set Location</span>
-                <ChevronDown className="h-3 w-3" />
+            <div className="shrink-0 hidden md:block ml-2">
+              <button className="group flex items-center gap-2 rounded-full bg-slate-100/80 hover:bg-emerald-50 border border-slate-200/60 hover:border-emerald-200 px-4 py-2 text-sm text-slate-700 hover:text-emerald-700 transition-all duration-300">
+                <MapPin className="h-4 w-4 text-emerald-600 group-hover:animate-bounce" />
+                <span className="font-semibold max-w-[140px] truncate">Set Location</span>
+                <ChevronDown className="h-3.5 w-3.5 opacity-60" />
               </button>
             </div>
 
             {/* Search Bar */}
-            <div className="flex-1 max-w-xl hidden md:block ml-4">
-              <form className="relative" onSubmit={handleSearch}>
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
+            <div className="flex-1 max-w-2xl hidden md:block ml-auto mr-auto">
+              <form className="relative group" onSubmit={handleSearch}>
+                <div className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none">
+                  <Search className="h-5 w-5 text-slate-400 group-focus-within:text-emerald-500 transition-colors" />
+                </div>
                 <input 
                   type="text" 
-                  placeholder="Search tomatoes, potatoes..." 
-                  className="w-full h-10 rounded-xl border border-slate-200 bg-slate-50 pl-10 pr-4 text-sm outline-none transition-all focus:border-leaf focus:ring-2 focus:ring-leaf/10 focus:bg-white placeholder:text-slate-400"
+                  placeholder="Search for fresh tomatoes, potatoes, and more..." 
+                  className="w-full h-12 rounded-full border border-slate-200 bg-slate-50/50 pl-12 pr-24 text-[15px] outline-none transition-all duration-300 focus:border-emerald-400 focus:ring-4 focus:ring-emerald-500/10 focus:bg-white placeholder:text-slate-400 shadow-inner"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                 />
+                <button type="submit" className="absolute right-1.5 top-1.5 bottom-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-full px-5 font-semibold text-sm transition-colors shadow-md shadow-emerald-600/20">
+                  Search
+                </button>
               </form>
             </div>
 
             {/* Right Actions */}
-            <div className="flex items-center gap-2 ml-auto">
-              <button className="md:hidden flex items-center justify-center w-10 h-10 rounded-full hover:bg-slate-50">
-                <Search className="h-5 w-5 text-slate-600" />
+            <div className="flex items-center gap-3 shrink-0 ml-auto">
+              <button className="md:hidden flex items-center justify-center w-10 h-10 rounded-full bg-slate-100 text-slate-600 hover:bg-slate-200 transition-colors">
+                <Search className="h-5 w-5" />
               </button>
               
-              <Link className="hidden sm:flex items-center gap-1.5 rounded-full bg-harvest text-white px-4 py-2 text-sm font-semibold hover:bg-harvest-dark transition-colors" to="/sell">
-                <Leaf className="h-4 w-4" />
-                Sell
+              <Link className="hidden sm:flex items-center gap-2 rounded-full bg-gradient-to-r from-amber-500 to-orange-500 text-white px-5 py-2.5 text-sm font-bold hover:from-amber-600 hover:to-orange-600 transition-all duration-300 shadow-lg shadow-orange-500/25 hover:shadow-orange-500/40 hover:-translate-y-0.5" to="/sell">
+                <Sprout className="h-4 w-4" />
+                Sell Produce
               </Link>
               
-              <Link className="relative flex items-center justify-center w-10 h-10 rounded-full hover:bg-slate-50" to="/cart">
-                <ShoppingCart className="h-5 w-5 text-slate-600" />
-                <span className="absolute top-0 right-0 flex items-center justify-center rounded-full bg-harvest text-[10px] font-bold text-white min-w-[18px] h-[18px]">
+              <Link className="relative flex items-center justify-center w-11 h-11 rounded-full bg-slate-50 border border-slate-200 hover:bg-emerald-50 hover:border-emerald-200 hover:text-emerald-600 text-slate-600 transition-all duration-300" to="/cart">
+                <ShoppingCart className="h-5 w-5" />
+                <span className="absolute -top-1 -right-1 flex items-center justify-center rounded-full bg-red-500 text-[11px] font-bold text-white min-w-[20px] h-[20px] shadow-sm border-2 border-white">
                   0
                 </span>
               </Link>
 
-              <Link className="hidden sm:flex items-center gap-1.5 rounded-full border border-slate-200 px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 transition-colors" to="/login">
+              <Link className="hidden sm:flex items-center gap-2 rounded-full bg-slate-50 border border-slate-200 px-5 py-2.5 text-sm font-bold text-slate-700 hover:bg-slate-100 hover:border-slate-300 transition-all duration-300" to="/login">
                 <User className="h-4 w-4" />
                 Login
               </Link>
 
-              <button className="md:hidden flex items-center justify-center w-10 h-10 rounded-full hover:bg-slate-50">
-                <Menu className="h-5 w-5 text-slate-600" />
+              <button className="md:hidden flex items-center justify-center w-11 h-11 rounded-full bg-slate-50 border border-slate-200 text-slate-600 hover:bg-slate-100 transition-colors">
+                <Menu className="h-5 w-5" />
               </button>
             </div>
           </div>
@@ -114,16 +119,16 @@ export default function Home() {
       <main className="pb-16 lg:pb-0 overflow-x-hidden">
         
         {/* Category Strip */}
-        <div className="border-b border-slate-50 hidden md:block">
+        <div className="bg-white border-b border-slate-100 hidden md:block shadow-sm relative z-40">
           <div className="mx-auto max-w-7xl px-4">
-            <div className="flex items-center gap-2 py-2 overflow-x-auto no-scrollbar">
+            <div className="flex items-center justify-between py-3 overflow-x-auto no-scrollbar gap-2">
               {categories.map((cat, idx) => (
                 <Link 
                   key={idx} 
-                  className="flex items-center gap-1.5 whitespace-nowrap rounded-full px-3 py-1.5 text-xs font-medium text-slate-600 hover:bg-leaf-50 hover:text-leaf-700 transition-colors"
+                  className="group flex items-center gap-2 whitespace-nowrap rounded-full px-4 py-2 text-sm font-semibold text-slate-600 hover:bg-emerald-50 hover:text-emerald-700 transition-all duration-300 border border-transparent hover:border-emerald-100"
                   to={cat.link}
                 >
-                  <span>{cat.icon}</span>
+                  <span className="text-lg group-hover:scale-110 transition-transform duration-300">{cat.icon}</span>
                   <span>{cat.name}</span>
                 </Link>
               ))}
