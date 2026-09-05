@@ -67,6 +67,9 @@ function App() {
           element={<LiveStocks />}
         />
 
+
+        
+
       </Routes>
     </Router>
   );
