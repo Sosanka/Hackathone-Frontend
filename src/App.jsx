@@ -6,12 +6,16 @@ import {
   Navigate,
 } from "react-router-dom";
 
+import { AuthProvider } from "./context/AuthContext";
+import RequireSeller from "./components/RequireSeller";
+
 import Dashboard from "./pages/user/Dashboard";
 import MyListings from "./pages/user/MyListings";
 import LiveStocks from "./pages/user/LiveStocks";
 
-import Login from "./pages/Login";
-import SellerRegister from "./pages/SellerRegister";
+import Login from "./pages/LoginPage";
+import SellerRegister from "./pages/Register";
+import VerifyOtpPage from "./pages/VerifyOtpPage";
 import Home from "./pages/Home";
 
 import ProfileUpdatePage from "./pages/ProfileUpdatePage";
@@ -21,30 +25,54 @@ import UserRegister from "./pages/user/auth/UserRegister";
 function App() {
   return (
     <Router>
-      <Routes>
-        {/* Default */}
-        <Route path="/" element={<Navigate to="/dashboard" replace />} />
+      <AuthProvider>
+        <Routes>
+          {/* Default */}
+          <Route path="/" element={<Navigate to="/dashboard" replace />} />
 
-        {/* Authentication */}
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<SellerRegister />} />
-        <Route path="/user/register" element={<UserRegister />} />
+          {/* Authentication */}
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<SellerRegister />} />
+          <Route path="/verify-otp" element={<VerifyOtpPage />} />
+          <Route path="/user/register" element={<UserRegister />} />
 
-        {/* Onboarding & Profile */}
-        <Route path="/onboarding" element={<Onboarding />} />
+          {/* Onboarding & Profile */}
+          <Route path="/onboarding" element={<Onboarding />} />
+          <Route path="/profile-update" element={<ProfileUpdatePage />} />
 
-        <Route path="/profile-update" element={<ProfileUpdatePage />} />
+          {/* Home */}
+          <Route path="/home" element={<Home />} />
 
-        {/* Home */}
-        <Route path="/home" element={<Home />} />
+          {/* Seller Portal (guarded) */}
+          <Route
+            path="/dashboard"
+            element={
+              <RequireSeller>
+                <Dashboard />
+              </RequireSeller>
+            }
+          />
+          <Route
+            path="/listings"
+            element={
+              <RequireSeller>
+                <MyListings />
+              </RequireSeller>
+            }
+          />
+          <Route
+            path="/stocks"
+            element={
+              <RequireSeller>
+                <LiveStocks />
+              </RequireSeller>
+            }
+          />
 
-        {/* Seller Portal */}
-        <Route path="/dashboard" element={<Dashboard />} />
-
-        <Route path="/listings" element={<MyListings />} />
-
-        <Route path="/stocks" element={<LiveStocks />} />
-      </Routes>
+          {/* Fallback */}
+          <Route path="*" element={<Navigate to="/login" replace />} />
+        </Routes>
+      </AuthProvider>
     </Router>
   );
 }
