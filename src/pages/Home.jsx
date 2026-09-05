@@ -4,9 +4,11 @@ import {
   Search, MapPin, ChevronDown, Menu, ShoppingCart, Leaf, User,
   Users, Sprout, Truck, Bus, ShoppingBasket, IndianRupee, Handshake
 } from 'lucide-react';
+import CartDrawer from '../components/CartDrawer';
 
 export default function Home() {
   const [searchQuery, setSearchQuery] = useState('');
+  const [isCartOpen, setIsCartOpen] = useState(false);
 
   const categories = [
     { name: 'Vegetables', icon: '🥬', link: '/categories/vegetables', color: 'from-green-50 to-emerald-50 border-green-200' },
@@ -96,12 +98,15 @@ export default function Home() {
                 Sell Produce
               </Link>
               
-              <Link className="relative flex items-center justify-center w-11 h-11 rounded-full bg-slate-50 border border-slate-200 hover:bg-emerald-50 hover:border-emerald-200 hover:text-emerald-600 text-slate-600 transition-all duration-300" to="/cart">
+              <button 
+                className="relative flex items-center justify-center w-11 h-11 rounded-full bg-slate-50 border border-slate-200 hover:bg-emerald-50 hover:border-emerald-200 hover:text-emerald-600 text-slate-600 transition-all duration-300 cursor-pointer" 
+                onClick={() => setIsCartOpen(true)}
+              >
                 <ShoppingCart className="h-5 w-5" />
                 <span className="absolute -top-1 -right-1 flex items-center justify-center rounded-full bg-red-500 text-[11px] font-bold text-white min-w-[20px] h-[20px] shadow-sm border-2 border-white">
-                  0
+                  3
                 </span>
-              </Link>
+              </button>
 
               <Link className="hidden sm:flex items-center gap-2 rounded-full bg-slate-50 border border-slate-200 px-5 py-2.5 text-sm font-bold text-slate-700 hover:bg-slate-100 hover:border-slate-300 transition-all duration-300" to="/login">
                 <User className="h-4 w-4" />
@@ -414,6 +419,8 @@ export default function Home() {
         </section>
 
       </main>
+
+      <CartDrawer isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
     </div>
   );
 }
