@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "../components/Auth.css";
 import "../App.css";
 import eyeIcon from "../assets/eye-solid-full.svg";
+import { loginSeller } from "../api/services/sellerAuth";
 
 function Login() {
   const navigate = useNavigate();
@@ -30,29 +31,17 @@ function Login() {
     setLoading(true);
 
     try {
-      // API integration will go here
-      console.log("Login data:", formData);
+      const response = await loginSeller(formData);
 
-      /*
-      Example:
-
-      const response = await axios.post(
-        "YOUR_BACKEND_URL/api/v1/auth/login",
-        formData
-      );
-
-      localStorage.setItem("access_token", response.data.access_token);
-
-      navigate("/");
-      */
-
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      localStorage.setItem("access_token", response.access_token);
 
       console.log("Login successful");
+      navigate("/seller/dashboard"); // Navigate to seller dashboard after login
     } catch (err) {
       console.error(err);
 
       setError(
+        err.response?.data?.detail?.message ||
         err.response?.data?.detail ||
           "Login failed. Please check your credentials.",
       );
@@ -74,15 +63,27 @@ function Login() {
                     
             {/* Email Field */}
             <div className="input-group">
-              <input type="email" placeholder="Email" className="form-input" />
+              <input 
+                type="email" 
+                name="email"
+                placeholder="Email" 
+                className="form-input" 
+                value={formData.email}
+                onChange={handleChange}
+                required
+              />
             </div>
 
             {/* Password Field */}
             <div className="input-group">
               <input
                 type={showPassword ? "text" : "password"}
+                name="password"
                 placeholder="Password"
                 className="form-input password-input"
+                value={formData.password}
+                onChange={handleChange}
+                required
               />
               <button
                 type="button"

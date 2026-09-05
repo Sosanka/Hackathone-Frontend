@@ -24,7 +24,7 @@ function Register() {
     setError(null);
 
     const endpoint = selectedRole === "provider" 
-      ? "" 
+      ? "http://localhost:8000/api/v1/seller/auth/register" 
       : "http://localhost:8000/api/v1/buyer/auth/register";
 
     try {

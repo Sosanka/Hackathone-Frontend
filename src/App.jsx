@@ -1,38 +1,24 @@
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Login from "./pages/Login";
-import Register from "./pages/Register";
-import Home from "./pages/Home";
+import SellerRegister from "./pages/SellerRegister";
+import SellerDashboard from "./pages/SellerDashboard";
 
 function App() {
   return (
     <BrowserRouter>
-
       <Routes>
 
-        <Route
-          path="/"
-          element={<Navigate to="/home" replace />}
-        />
+        {/* Login */}
+        <Route path="/login" element={<Login />} />
 
-        <Route
-          path="/home"
-          element={<Home />}
-        />
+        {/* Seller Registration */}
+        <Route path="/register" element={<SellerRegister />} />
 
+        {/* Seller Dashboard */}
         <Route
-          path="/login"
-          element={<Login />}
-        />
-
-        <Route
-          path="/register"
-          element={<Register />}
-        />
-
-        <Route
-          path="*"
-          element={<Navigate to="/login" replace />}
+          path="/seller/dashboard"
+          element={<SellerDashboard />}
         />
 
       </Routes>
