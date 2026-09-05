@@ -5,6 +5,7 @@ import MyListings from './pages/user/MyListings';
 import LiveStocks from './pages/user/LiveStocks';
 import Login from "./pages/Login";
 import SellerRegister from "./pages/SellerRegister";
+import Home from "./pages/Home";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         {/* Seller Registration */}
         <Route path="/register" element={<SellerRegister />} />
 
+        <Route path="/home" element={<Home />} />
 
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/listings" element={<MyListings />} />
