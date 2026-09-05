@@ -1,1 +1,15 @@
 @import "tailwindcss";
+
+:root {
+  --theme-bg-main: #f3f4f6; /* Light gray/white background */
+  --theme-surface: #ffffff; /* Pure white for cards */
+  --theme-green-dark: #166534; /* Sidebar background */
+  --theme-green-light: #dcfce7; /* Highlights */
+  --theme-yellow-light: #fef9c3; /* Warning/Action areas */
+  --theme-yellow-accent: #eab308; /* Text highlights */
+}
+
+body {
+  background-color: var(--theme-bg-main);
+  color: #1f2937;
+}
